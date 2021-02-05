@@ -1,10 +1,10 @@
 import Element from '../Element/Element'
-function TitleUnit({type, value, id}) {
-  if (type === 'element') {
-    return <Element {...value}/>
-  } else {
-    return <h1>{value}</h1>
-  }
+import Char from '../Char/Char'
+function TitleUnit({type, data}) {
+  const unit = type === 'element' ? <Element {...data}/> : <Char {...data}/>
+  return (
+    <div>{unit}</div>
+  )
 }
 
 export default TitleUnit

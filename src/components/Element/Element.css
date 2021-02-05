@@ -1,7 +1,8 @@
 .element-ctr {
   border: 1px solid white;
   color: white;
-  font-size: 1.6em;
+  font-size: 3em;
+  font-weight: 700;
   background-image: linear-gradient(to bottom right, rgba(107, 151, 100, 0.8), rgba(100, 100, 100, 0.1));
   width: 100px;
   height: 100px;

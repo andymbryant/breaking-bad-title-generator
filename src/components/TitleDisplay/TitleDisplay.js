@@ -4,7 +4,7 @@ import TitleUnit from '../TitleUnit/TitleUnit'
 import { v4 } from 'uuid';
 import * as orderBy from 'lodash/orderBy'
 import elementData from '../../data/elementData'
-
+import './TitleDisplay.css'
 const elements = elementData.elements
 
 function TitleDisplay() {
@@ -84,22 +84,24 @@ function TitleDisplay() {
     }
   }
   // Order by index, i.e. put array of mixed character sequences in order of title appearance
-  unformattedMixedArr = orderBy(unformattedMixedArr, 'ind')
+  unformattedMixedArr = orderBy(unformattedMixedArr, 'ind[0]')
 
   const titleUnits = unformattedMixedArr.map(unit => {
     const element = elements[unit.str]
-    const value = element ? element : unit.str
+    const value = element ? element : {str: unit.str}
     const type = element ? 'element' : 'char'
     return {
       id: v4(),
       type,
-      value
+      data: value
     }
   })
 
   // console.log(formattedTitle)
   return (
-    titleUnits.map(unit => <TitleUnit key={unit.id} {...unit}/>)
+    <div className='word-ctr'>
+      {titleUnits.map(unit => <TitleUnit key={unit.id} {...unit}/>)}
+    </div>
   )
 }
 
