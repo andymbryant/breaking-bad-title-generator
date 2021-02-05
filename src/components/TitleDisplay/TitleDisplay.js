@@ -97,10 +97,11 @@ function TitleDisplay() {
     }
   })
 
-  // console.log(formattedTitle)
   return (
-    <div className='word-ctr'>
-      {titleUnits.map(unit => <TitleUnit key={unit.id} {...unit}/>)}
+    <div className="title-ctr">
+      <div className='word-ctr'>
+        {titleUnits.map(unit => <TitleUnit key={unit.id} {...unit}/>)}
+      </div>
     </div>
   )
 }
