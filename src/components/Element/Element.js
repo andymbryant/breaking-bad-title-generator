@@ -1,9 +1,8 @@
 import './Element.css'
-function Element({number}) {
-  console.log(number)
+function Element({symbol}) {
   return (
     <div className="element-ctr">
-      <h1>{number}</h1>
+      <h1>{symbol}</h1>
     </div>
   )
 }

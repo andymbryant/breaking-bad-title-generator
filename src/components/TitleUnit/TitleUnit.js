@@ -1,9 +1,9 @@
 import Element from '../Element/Element'
-function TitleUnit({unit}) {
-  if (unit.type === 'element') {
-    return <Element {...unit.value}/>
+function TitleUnit({type, value, id}) {
+  if (type === 'element') {
+    return <Element {...value}/>
   } else {
-    return <h1>{unit.value}</h1>
+    return <h1>{value}</h1>
   }
 }
 
