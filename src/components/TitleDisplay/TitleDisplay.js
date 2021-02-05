@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 import * as orderBy from 'lodash/orderBy'
 
 function TitleDisplay() {
-  const {title, dispatch} = useContext(TitleContext)
+  const {title} = useContext(TitleContext)
   // Search title text for element match
   // Get array of
   const elements = {
