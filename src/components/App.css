@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  background: url('./assets/smoke-background.png') no-repeat center center fixed;
+  background: url('../assets/smoke-background.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -14,10 +14,13 @@
   justify-content: center;
 }
 
-.content {
-  border: 1px solid black;
+.title-content {
   width: 600px;
   height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
 }
 
 footer {
