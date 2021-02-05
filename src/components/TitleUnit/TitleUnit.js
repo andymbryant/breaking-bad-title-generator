@@ -1,4 +1,4 @@
-import Element from './Element'
+import Element from '../Element/Element'
 function TitleUnit({unit}) {
   if (unit.type === 'element') {
     return <Element {...unit.value}/>

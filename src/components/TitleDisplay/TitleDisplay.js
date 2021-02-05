@@ -1,11 +1,11 @@
 import {useContext} from 'react'
-import {TitleContext} from '../TitleContext'
-import TitleUnit from './TitleUnit'
+import {TitleContext} from '../../contexts/TitleContext'
+import TitleUnit from '../TitleUnit/TitleUnit'
 import { v4 } from 'uuid';
 import * as orderBy from 'lodash/orderBy'
 
 function TitleDisplay() {
-  const [title] = useContext(TitleContext)
+  const {title, dispatch} = useContext(TitleContext)
   // Search title text for element match
   // Get array of
   const elements = {
