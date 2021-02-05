@@ -1,5 +1,11 @@
 .element-ctr {
-  border: 1px solid black;
-  width: 200px;
-  height: 200px;
+  border: 1px solid white;
+  color: white;
+  font-size: 1.6em;
+  background-image: linear-gradient(to bottom right, rgba(107, 151, 100, 0.8), rgba(100, 100, 100, 0.1));
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
