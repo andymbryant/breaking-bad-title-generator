@@ -9,6 +9,7 @@ function TitleInput() {
   const handleSetTitle = (e) => setTitle(e.target.value)
   const handleClearTitle = (e) => {
     e.preventDefault()
+    inputEl.current.value = defaultTitleValue
     setTitle(defaultTitleValue)
   }
   return (
