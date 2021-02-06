@@ -22,13 +22,3 @@
   justify-content: baseline;
   align-items: center;
 }
-
-footer {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-}
-
-.page-title {
-  color: white;
-}
