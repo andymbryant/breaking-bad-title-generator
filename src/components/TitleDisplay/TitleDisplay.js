@@ -2,20 +2,19 @@ import {useContext} from 'react'
 import {TitleContext} from '../../contexts/TitleContext'
 import TitleWord from '../TitleWord/TitleWord'
 import './TitleDisplay.css'
-import { getTitleUnitArrayFromString } from './formatTitle'
+import { splitString, getTitleUnitObjectFromString  } from './formatTitle'
 
 function TitleDisplay() {
   const {title} = useContext(TitleContext)
 
   // Split title into strings by spaces
-  const titleStrings = title.split(' ')
-  if (!titleStrings.length) return
-  const titleWordsFormatted = titleStrings.map((word) => getTitleUnitArrayFromString(word))
+  const titleStrArr = splitString(title)
+  if (!titleStrArr.length) return
+  const titleUnitObjectArray = titleStrArr.map((word) => getTitleUnitObjectFromString(word))
 
   return (
     <div className="title-ctr">
-      {/* TODO: generate key for word array */}
-      {titleWordsFormatted.map(word => <TitleWord key={word} word={word}/>)}
+      {titleUnitObjectArray.map(obj => <TitleWord key={obj.id} titleUnits={obj.arr}/>)}
     </div>
   )
 }
