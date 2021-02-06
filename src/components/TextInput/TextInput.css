@@ -1,6 +1,16 @@
 .text-input-ctr {
-  width: 300px;
+  width: 400px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.text-input-label {
+  color: rgb(49, 49, 49);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+#text-input {
+  width: 200px;
 }

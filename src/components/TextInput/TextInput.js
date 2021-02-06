@@ -13,9 +13,9 @@ function TextInput() {
   }
   return (
     <div className='text-input-ctr'>
-      <label htmlFor="title-input">Enter Text</label>
-      <input ref={inputEl} value={title} onChange={handleSetTitle} type="text" id='title-input'/>
-      <button onClick={handleClearTitle}>Clear</button>
+      <label className='text-input-label' htmlFor="text-input">Enter Text</label>
+      <input data-cy='text-input' ref={inputEl} value={title} onChange={handleSetTitle} type="text" id='text-input'/>
+      <button data-cy='clear-btn' onClick={handleClearTitle}>Clear</button>
     </div>
   )
 }
