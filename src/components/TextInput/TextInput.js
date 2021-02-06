@@ -6,7 +6,6 @@ function TextInput() {
   const inputEl = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const {title, dispatch} = useContext(TitleContext)
-  // const handleSubmit = (e) => e.preventDefault()
   const handleSetTitle = (e) => dispatch({type: 'SET_TITLE', payload: e.target.value})
   const handleClearTitle = (e) => {
     e.preventDefault()
