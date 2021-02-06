@@ -9,13 +9,15 @@ const getFormattedWord = (word) => {
     // Keep track of the indices at which each char occurs in the title
     const oneCharStrArr = []
     const twoCharStrArr = []
-    for (let i = 0, j = 1; i < word.length; i++, j++) {
+    for (let i = 0; i < word.length; i++) {
       const firstChar = word[i]
       const oneCharData = {
         str: firstChar,
         ind: [i]
       }
       oneCharStrArr.push(oneCharData)
+
+      let j = i + 1
       if (j < word.length) {
         const secondChar = word[j]
         const str = `${firstChar}${secondChar}`
@@ -70,15 +72,13 @@ const getFormattedWord = (word) => {
 
     const wordUnits = unformattedMixedArr.map(unit => {
       const element = elements[unit.str]
-      const value = element ? element : {str: unit.str}
-      const type = element ? 'element' : 'char'
       return {
         id: v4(),
-        type,
-        data: value
+        type: element ? 'element' : 'char',
+        data: element ? element : {str: unit.str}
       }
     })
     return wordUnits
 }
 
-export {getFormattedWord}
+export { getFormattedWord }
