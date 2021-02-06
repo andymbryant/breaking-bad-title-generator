@@ -3,7 +3,6 @@ import * as orderBy from 'lodash/orderBy'
 import * as shuffle from 'lodash/shuffle'
 import { elements } from '../../data/elementData'
 
-
 /**
  * Return pseudo-random id of specified length
  * @param {number} length length of returned id, greater than 0 and less than 32
@@ -32,9 +31,11 @@ function splitString(str, sep = ' ') {
  * of the original string arg, along with the corresponding indices of their occurrence within the string arg
  * @param {string} str
  * @param {boolean} randomize enables pseudo-random shuffling of items, using lodash shuffle function (Fisher-Yates)
+ * @param {boolean} includeThreeCharStr optional flag for including three-character strings,
+ * which would only access a single element: Ununennium
  * @returns {array} string object array
  */
-function getStringObjectArray(str, randomize=true, includeThreeCharStr=true) {
+function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
   const strObjArr = []
   // Loop through all characters of the string arg
   for (let i = 0; i < str.length; i++) {
@@ -60,6 +61,7 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=true) {
       }
     }
 
+    // This block can be nested in the above if statement, but it makes it less legible
     if (includeThreeCharStr) {
       let k = j + 1
       if (k < str.length) {
