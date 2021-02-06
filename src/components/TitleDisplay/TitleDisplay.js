@@ -7,9 +7,10 @@ import { splitString, getTitleUnitObjectFromString  } from './formatTitle'
 function TitleDisplay() {
   const {title} = useContext(TitleContext)
 
-  // Split title into strings by spaces
+  // Split text string into array on space (if any)
   const titleStrArr = splitString(title)
   if (!titleStrArr.length) return
+  // Get array of title unit objects for rendering
   const titleUnitObjectArray = titleStrArr.map((word) => getTitleUnitObjectFromString(word))
 
   return (

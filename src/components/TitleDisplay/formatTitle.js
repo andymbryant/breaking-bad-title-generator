@@ -1,17 +1,30 @@
 import { v4 } from 'uuid';
 import * as orderBy from 'lodash/orderBy'
 import * as shuffle from 'lodash/shuffle'
-import {elements} from '../../data/elementData'
+import { elements } from '../../data/elementData'
 
-function getID(length=6) {
-  if (1 > length > 10) {
-    console.error('Length must be greater than 0 and less than 10')
+
+/**
+ * Return pseudo-random id of specified length
+ * @param {number} length length of returned id, greater than 0 and less than 32
+ * @returns {string} the generated id
+ */
+function generateID(length=6) {
+  if (0 > length > 32) {
+    console.error('Length must be greater than 0 and less than 32')
+    length = 4
   }
-  return v4().slice(1, length + 1)
+  return v4().split('-').join('').slice(1, length + 1)
 }
 
-function splitString(str) {
-  return str.split(' ')
+/**
+ * Returns a string split by a delimeter
+ * @param {string} str the string to be split
+ * @param {string} sep the separator for splitting the string
+ * @returns {string} the split string
+ */
+function splitString(str, sep = ' ') {
+  return str.split(sep)
 }
 
 /**
@@ -21,7 +34,7 @@ function splitString(str) {
  * @param {boolean} randomize enables pseudo-random shuffling of items, using lodash shuffle function (Fisher-Yates)
  * @returns {array} string object array
  */
-function getStringObjectArray(str, randomize=true) {
+function getStringObjectArray(str, randomize=true, includeThreeCharStr=true) {
   const strObjArr = []
   // Loop through all characters of the string arg
   for (let i = 0; i < str.length; i++) {
@@ -45,6 +58,24 @@ function getStringObjectArray(str, randomize=true) {
         }
         strObjArr.push(twoCharStrObj)
       }
+    }
+
+    if (includeThreeCharStr) {
+      let k = j + 1
+      if (k < str.length) {
+        const secondChar = str[j]
+        const thirdChar = str[k]
+        const threeCharStr = `${firstChar}${secondChar}${thirdChar}`
+      // Check if twoCharStr is a key of the elements object
+      // If not, then it should be considered for inclusion in the final title
+      if (elements[threeCharStr]) {
+        const threeCharStrObj = {
+          str: threeCharStr,
+          ind: [i,j,k]
+        }
+        strObjArr.push(threeCharStrObj)
+      }
+    }
     }
   }
   if (randomize) {
@@ -86,6 +117,12 @@ function getStringMap(str) {
   return stringMap
 }
 
+/**
+ * Returns a title unit object, which includes a title unit array and an id
+ * A title unit array includes an id, the type of title unit, and the data needed to render a title unit (either element data or a string)
+ * @param {string} str the string to be used for generating a title unit object
+ * @returns {object} a title unit object
+ */
 function getTitleUnitObjectFromString(str) {
   const stringMap = getStringMap(str)
   const strObjArr = getStringObjectArray(str)
@@ -93,17 +130,18 @@ function getTitleUnitObjectFromString(str) {
   const titleUnitArray = unformattedTitleUnitArr.map(unit => {
     // Get element from elements data by key
     const element = elements[unit.str]
+    const isElement = !!element
     return {
-      id: getID(),
+      id: generateID(),
       // If element exists, then return an element object, otherwise return a character object
-      type: element ? 'element' : 'char',
-      data: element ? element : {str: unit.str}
+      type: isElement ? 'element' : 'char',
+      data: isElement ? element : {str: unit.str}
     }
   })
   return {
-    id: getID(),
+    id: generateID(),
     arr: titleUnitArray
   }
 }
 
-export { splitString, getTitleUnitObjectFromString }
+export { splitString, getTitleUnitObjectFromString, generateID }
