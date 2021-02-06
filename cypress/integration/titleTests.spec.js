@@ -7,11 +7,9 @@ describe('Title tests', () => {
   before(()=> {
     cy.visit('http://localhost:3000/')
   })
-  beforeEach(()=> {
-    cy.get('[data-cy=clear-btn]').click()
-  })
   afterEach(()=> {
     cy.wait(1500)
+    cy.get('[data-cy=clear-btn]').click()
   })
   titleExamples.forEach(title => {
     it(`Renders title: ${title}`, () => {

@@ -16,7 +16,9 @@
 
 .title-content {
   width: 600px;
-  height: 400px;
+  min-width: 320px;
+  height: 600px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: baseline;

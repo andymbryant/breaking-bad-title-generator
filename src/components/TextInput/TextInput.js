@@ -9,7 +9,8 @@ function TextInput() {
     height: '100%'
   }
   const textInputStyle = {
-    color: 'green'
+    color: 'green',
+    marginRight: '1rem'
   }
   // eslint-disable-next-line no-unused-vars
   const {title, dispatch} = useContext(TitleContext)
@@ -24,7 +25,7 @@ function TextInput() {
       <TextField
         variant='outlined'
         label='Enter Text'
-        data-cy='txt-input'
+        data-cy='text-input'
         style={textInputStyle}
         value={title}
         id='text-input'
@@ -36,6 +37,7 @@ function TextInput() {
         data-cy='clear-btn'
         variant='contained'
         style={buttonStyle}
+        disabled={title === ''}
         onClick={handleClearTitle}
       >Clear</Button>
     </div>

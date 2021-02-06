@@ -1,5 +1,6 @@
 .text-input-ctr {
-  width: 400px;
+  width: 60%;
+  min-width: 320px;
   display: flex;
   align-items: center;
   justify-content: space-between;
