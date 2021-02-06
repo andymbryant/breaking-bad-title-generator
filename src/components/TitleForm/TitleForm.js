@@ -9,7 +9,6 @@ function TitleInput() {
   const handleSetTitle = (e) => dispatch({type: 'SET_TITLE', payload: e.target.value})
   const handleClearTitle = (e) => {
     e.preventDefault()
-    // inputEl.current.value = defaultTitleValue
     dispatch({type: 'CLEAR_TITLE'})
   }
   return (

@@ -35,10 +35,9 @@ const getFormattedWord = (word) => {
     // Shuffle result to make order pseudo-random
     // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     const shuffledStrArr = [oneCharStrArr, twoCharStrArr].flat()
-    .map((a) => ({sort: Math.random(), value: a}))
-    .sort((a, b) => a.sort - b.sort)
-    .map((a) => a.value)
-    console.log(shuffledStrArr)
+      .map((a) => ({sort: Math.random(), value: a}))
+      .sort((a, b) => a.sort - b.sort)
+      .map((a) => a.value)
 
     // Initialize map for each index of the title
     const wordMap = {}
