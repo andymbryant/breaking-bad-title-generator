@@ -50,7 +50,7 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) 
   // Loop through all characters of the string arg
   for (let i = 0; i < str.length; i++) {
     const firstChar = str[i]
-    const isElement = !!elements[firstChar]
+    const isElement = !!elements[firstChar.toLowerCase()]
     const oneCharStrObj = {
       str: firstChar,
       ind: [i],
@@ -64,7 +64,7 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) 
       const twoCharStr = `${firstChar}${secondChar}`
       // Check if twoCharStr is a key of the elements object
       // If not, then it should be considered for inclusion in the final title
-      const isElement = !!elements[twoCharStr]
+      const isElement = !!elements[twoCharStr.toLowerCase()]
       if (isElement) {
         const twoCharStrObj = {
           str: twoCharStr,
@@ -84,7 +84,7 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) 
         const threeCharStr = `${firstChar}${secondChar}${thirdChar}`
       // Check if twoCharStr is a key of the elements object
       // If not, then it should be considered for inclusion in the final title
-      const isElement = !!elements[threeCharStr]
+      const isElement = !!elements[threeCharStr.toLowerCase()]
       if (isElement) {
         const threeCharStrObj = {
           str: threeCharStr,
@@ -156,7 +156,7 @@ function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRan
   for (let i = 0; i < unformattedTitleUnitArr.length; i++) {
     const unit = unformattedTitleUnitArr[i]
     // Get element from elements data by key
-    const element = elements[unit.str]
+    const element = elements[unit.str.toLowerCase()]
     let isElement
     if (allowMultipleElements) {
       isElement = !!element
