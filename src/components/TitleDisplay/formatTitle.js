@@ -4,6 +4,15 @@ import * as shuffle from 'lodash/shuffle'
 import { elements } from '../../data/elementData'
 
 /**
+ * Helper function that checks if array has at least one object that has type 'element'
+ * @param {array} array of title units
+ */
+function arrayHasElementUnit(arr) {
+  if (!arr) return false
+  return arr.filter(tu => tu.type === 'element').length
+}
+
+/**
  * Return pseudo-random id of specified length
  * @param {number} length length of returned id, greater than 0 and less than 32
  * @returns {string} the generated id
@@ -40,9 +49,11 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
   // Loop through all characters of the string arg
   for (let i = 0; i < str.length; i++) {
     const firstChar = str[i]
+    const isElement = !!elements[firstChar]
     const oneCharStrObj = {
       str: firstChar,
-      ind: [i]
+      ind: [i],
+      type: isElement ? 'element' : 'char'
     }
     strObjArr.push(oneCharStrObj)
 
@@ -52,10 +63,12 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
       const twoCharStr = `${firstChar}${secondChar}`
       // Check if twoCharStr is a key of the elements object
       // If not, then it should be considered for inclusion in the final title
-      if (elements[twoCharStr]) {
+      const isElement = !!elements[twoCharStr]
+      if (isElement) {
         const twoCharStrObj = {
           str: twoCharStr,
-          ind: [i,j]
+          ind: [i,j],
+          type: 'element'
         }
         strObjArr.push(twoCharStrObj)
       }
@@ -70,10 +83,12 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
         const threeCharStr = `${firstChar}${secondChar}${thirdChar}`
       // Check if twoCharStr is a key of the elements object
       // If not, then it should be considered for inclusion in the final title
-      if (elements[threeCharStr]) {
+      const isElement = !!elements[threeCharStr]
+      if (isElement) {
         const threeCharStrObj = {
           str: threeCharStr,
-          ind: [i,j,k]
+          ind: [i,j,k],
+          type: 'element'
         }
         strObjArr.push(threeCharStrObj)
       }
@@ -99,6 +114,8 @@ function getUnformattedTitleUnitArray(strObjArr, strMap) {
   // Loop through each string object in the array arg
   for (let i = 0; i < strObjArr.length; i++) {
     const strObj = strObjArr[i]
+    // If an element has already been added to arr, do not add any more two or three-char units
+    if (arrayHasElementUnit(unformattedTitleUnitArr) && strObj.ind.length > 1) continue
     // If no string values are found in map, add them all
     if (!strObj.ind.some(i => strMap[i])) {
       // Add string object to array
@@ -107,7 +124,8 @@ function getUnformattedTitleUnitArray(strObjArr, strMap) {
       strObj.ind.forEach(j => strMap[j] = true)
     }
   }
-  return orderBy(unformattedTitleUnitArr, 'ind[0]')
+  return unformattedTitleUnitArr
+  // return orderBy(unformattedTitleUnitArr, 'ind[0]')
 }
 
 function getStringMap(str) {
@@ -129,20 +147,25 @@ function getTitleUnitObjectFromString(str) {
   const stringMap = getStringMap(str)
   const strObjArr = getStringObjectArray(str)
   const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap)
-  const titleUnitArray = unformattedTitleUnitArr.map(unit => {
+  let titleUnitArr = []
+  for (let i = 0; i < unformattedTitleUnitArr.length; i++) {
+    const unit = unformattedTitleUnitArr[i]
     // Get element from elements data by key
     const element = elements[unit.str]
-    const isElement = !!element
-    return {
+    const isElement = !!element && !arrayHasElementUnit(titleUnitArr)
+    const formattedTitleUnit = {
       id: generateID(),
       // If element exists, then return an element object, otherwise return a character object
       type: isElement ? 'element' : 'char',
-      data: isElement ? element : {str: unit.str}
+      data: isElement ? element : {str: unit.str},
+      ind: unit.ind
     }
-  })
+    titleUnitArr.push(formattedTitleUnit)
+  }
+
   return {
     id: generateID(),
-    arr: titleUnitArray
+    arr: orderBy(titleUnitArr, 'ind[0]')
   }
 }
 
