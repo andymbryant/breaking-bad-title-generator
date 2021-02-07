@@ -1,10 +1,11 @@
-# breaking-bad-title-generator
+# Breaking Bad Title Generator
 
 ### Summary
 Generates title text in the style of the Breaking Bad opening credits.
 
-[Live Link:](https://bbtitlegen.com/)
-[Element Format Repo:](https://github.com/andymbryant/element-formatter)
+[Live Link](https://bbtitlegen.com/)
+
+[Element Format Repo](https://github.com/andymbryant/element-formatter)
 
 ## Available Scripts
 
