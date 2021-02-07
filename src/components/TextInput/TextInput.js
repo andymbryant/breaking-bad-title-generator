@@ -20,7 +20,7 @@ function TextInput() {
   const handleToggleRandomSelection = (e) => configDispatch({type: 'TOGGLE_IS_ELEMENT_SELECTION_RANDOM'})
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
-    <Grid container fluid>
+    <Grid container>
       <Grid container spacing={2} justify='center' alignItems='center'>
         <Grid item xs={10}>
           <TextField
