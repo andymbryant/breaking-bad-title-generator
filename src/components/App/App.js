@@ -8,7 +8,6 @@ import {TitleContext} from '../../contexts/TitleContext'
 import {ConfigContext} from '../../contexts/ConfigContext'
 import {configReducer, defaultConfigState} from '../../reducers/configReducer'
 import {titleReducer, defaultTitleState} from '../../reducers/titleReducer'
-import './App.css';
 
 
 function App() {

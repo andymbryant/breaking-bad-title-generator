@@ -20,54 +20,52 @@ function TextInput() {
   const handleToggleRandomSelection = (e) => configDispatch({type: 'TOGGLE_IS_ELEMENT_SELECTION_RANDOM'})
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
-    <Grid container>
-      <Grid container spacing={2} justify='center' alignItems='center'>
-        <Grid item xs={10}>
-          <TextField
-            variant='filled'
-            color='secondary'
-            label='Enter Text'
-            data-cy='text-input'
-            inputProps={{
-              spellCheck: false
-            }}
-            value={title}
-            id='text-input'
-            fullWidth={true}
-            onChange={handleSetTitle}
-            />
-        </Grid>
-        <Grid item xs={2} style={buttonStyle}>
-          <Button
-            color='secondary'
-            data-cy='clear-btn'
-            variant='contained'
-            style={buttonStyle}
-            disabled={title === ''}
-            onClick={handleClearTitle}
-            >Clear
-          </Button>
-        </Grid>
+    <Grid container spacing={1}>
+      <Grid item xs={9}>
+        <TextField
+          variant='filled'
+          color='secondary'
+          label='Enter Text'
+          data-cy='text-input'
+          inputProps={{
+            spellCheck: false
+          }}
+          value={title}
+          id='text-input'
+          fullWidth={true}
+          onChange={handleSetTitle}
+          />
+      </Grid>
+      <Grid item xs={2}>
+        <Button
+          color='secondary'
+          data-cy='clear-btn'
+          variant='contained'
+          style={buttonStyle}
+          disabled={title === ''}
+          onClick={handleClearTitle}
+          >Clear
+        </Button>
       </Grid>
       <Grid item>
-      <FormControlLabel
-        control={
-          <Checkbox
-            onChange={handleToggleAllowMultpleElements}
-            checked={config.allowMultipleElements}
+        <FormControlLabel
+          control={
+            <Checkbox
+              onChange={handleToggleAllowMultpleElements}
+              checked={config.allowMultipleElements}
+            />
+          }
+          label='Allow Multiple Elements'
           />
-        }
-        label='Allow Multiple Elements'
-        />
-      <FormControlLabel
-        control={
-          <Checkbox
-            onChange={handleToggleRandomSelection}
-            checked={config.isElementSelectionRandom}
+        <FormControlLabel
+          control={
+            <Checkbox
+              onChange={handleToggleRandomSelection}
+              checked={config.isElementSelectionRandom}
+            />
+          }
+          label='Random Element Selection'
           />
-        }
-        label='Random Element Selection'
-        />
       </Grid>
     </Grid>
   )
