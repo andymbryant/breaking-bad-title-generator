@@ -36,7 +36,7 @@ function TextInput() {
         onChange={handleSetTitle}
       />
       <Button
-        color='primary'
+        color='secondary'
         data-cy='clear-btn'
         variant='contained'
         style={buttonStyle}

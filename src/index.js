@@ -9,7 +9,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 const bbTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#ffa400'
+      main: '#1d7b33'
     },
     secondary: {
       main: '#ffa400'
