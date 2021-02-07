@@ -3,7 +3,7 @@ import './TextInput.css'
 import {TitleContext} from '../../contexts/TitleContext'
 import {ConfigContext} from '../../contexts/ConfigContext'
 import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
@@ -11,9 +11,6 @@ import Button from '@material-ui/core/Button';
 function TextInput() {
   const buttonStyle = {
     height: '100%'
-  }
-  const textInputStyle = {
-    marginRight: '1rem'
   }
   // eslint-disable-next-line no-unused-vars
   const {title, titleDispatch} = useContext(TitleContext)
@@ -23,33 +20,36 @@ function TextInput() {
   const handleToggleRandomSelection = (e) => configDispatch({type: 'TOGGLE_IS_ELEMENT_SELECTION_RANDOM'})
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
-    <Container fluid='true'>
-      <div className='text-input-ctr'>
-        <TextField
-          variant='filled'
-          color='secondary'
-          label='Enter Text'
-          data-cy='text-input'
-          style={textInputStyle}
-          inputProps={{
-            spellCheck: false
-          }}
-          value={title}
-          id='text-input'
-          fullWidth={true}
-          onChange={handleSetTitle}
-          />
-        <Button
-          color='secondary'
-          data-cy='clear-btn'
-          variant='contained'
-          style={buttonStyle}
-          disabled={title === ''}
-          onClick={handleClearTitle}
-          >Clear
-        </Button>
-      </div>
-      <div>
+    <Grid container fluid>
+      <Grid container spacing={2} justify='center' alignItems='center'>
+        <Grid item xs={10}>
+          <TextField
+            variant='filled'
+            color='secondary'
+            label='Enter Text'
+            data-cy='text-input'
+            inputProps={{
+              spellCheck: false
+            }}
+            value={title}
+            id='text-input'
+            fullWidth={true}
+            onChange={handleSetTitle}
+            />
+        </Grid>
+        <Grid item xs={2} style={buttonStyle}>
+          <Button
+            color='secondary'
+            data-cy='clear-btn'
+            variant='contained'
+            style={buttonStyle}
+            disabled={title === ''}
+            onClick={handleClearTitle}
+            >Clear
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid item>
       <FormControlLabel
         control={
           <Checkbox
@@ -68,8 +68,8 @@ function TextInput() {
         }
         label='Random Element Selection'
         />
-      </div>
-    </Container>
+      </Grid>
+    </Grid>
   )
 }
 
