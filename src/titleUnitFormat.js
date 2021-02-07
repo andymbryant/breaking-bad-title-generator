@@ -149,6 +149,20 @@ function getStringMap(str) {
  * @returns {object} a title unit object
  */
 function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRandom) {
+  // If the input is an element, return it as an object immediately
+  if (elements[str.toLowerCase()]) {
+    return {
+      id: generateID(),
+      arr: [
+        {
+          id: generateID(),
+          type: TUT.ELEMENT,
+          data: elements[str],
+          ind: []
+        }
+      ]
+    }
+  }
   const stringMap = getStringMap(str)
   const strObjArr = getStringObjectArray(str, isSelectionRandom)
   const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap, allowMultipleElements)
