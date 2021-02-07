@@ -1,12 +1,19 @@
 .element-unit-ctr {
   border: 1px solid white;
   color: white;
-  font-size: 4em;
   font-weight: 700;
   background-image: linear-gradient(to bottom right, rgba(107, 151, 100, 0.8), rgba(100, 100, 100, 0.1));
-  width: 100px;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 5em;
+  width: 100px;
+  height: 100px;
+}
+@media only screen and (max-width: 600px) {
+  .element-unit-ctr {
+    font-size: 2.5em;
+    width: 60px;
+    height: 60px;
+  }
 }
