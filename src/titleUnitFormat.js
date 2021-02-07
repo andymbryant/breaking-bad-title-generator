@@ -40,12 +40,12 @@ function splitString(str, sep = ' ') {
  * Returns an array of string objects, which contain either one or two-character substrings
  * of the original string arg, along with the corresponding indices of their occurrence within the string arg
  * @param {string} str
- * @param {boolean} randomize enables pseudo-random shuffling of items, using lodash shuffle function (Fisher-Yates)
+ * @param {boolean} isSelectionRandom make the selection of elements random (if false, it is first matched)
  * @param {boolean} includeThreeCharStr optional flag for including three-character strings,
  * which would only access a single element: Ununennium
  * @returns {array} string object array
  */
-function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=false) {
+function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) {
   const strObjArr = []
   // Loop through all characters of the string arg
   for (let i = 0; i < str.length; i++) {
@@ -108,6 +108,7 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=false)
  * can be added to the final title, i.e. their addition would not result in any duplicate values in the final formatted title
  * @param {array} strObjArr array of string object
  * @param {object} strMap object with integer keys for each index in a string
+ * @param {boolean} allowMultipleElements allow multiple elements to be selected in each word
  * @returns {array} array of unformatted title unit objects, ordered by first index
  */
 function getUnformattedTitleUnitArray(strObjArr, strMap, allowMultipleElements = false) {
@@ -143,6 +144,8 @@ function getStringMap(str) {
  * Returns a title unit object, which includes a title unit array and an id
  * A title unit array includes an id, the type of title unit, and the data needed to render a title unit (either element data or a string)
  * @param {string} str the string to be used for generating a title unit object
+ * @param {boolean} allowMultipleElements allow multiple elements to be selected in each word
+ * @param {boolean} isSelectionRandom make the selection of elements random (if false, it is first matched)
  * @returns {object} a title unit object
  */
 function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRandom) {
