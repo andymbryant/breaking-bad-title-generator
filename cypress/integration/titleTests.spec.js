@@ -3,7 +3,7 @@
 
 describe('Title tests', () => {
   const titleExamples = ['Tim', 'John von Neumann', 'Jesse Pinkman', "Conan O'Brien", 'Barack Obama',
-    'Hermione Granger', ' ', 'four words in sentence', 'princess Zelda', 'Bowser']
+    'Hermione Granger', ' ', 'princess Zelda', 'Bowser']
   before(()=> {
     cy.visit('http://localhost:3000/')
   })
