@@ -8,18 +8,15 @@ import {TitleContext} from '../../contexts/TitleContext'
 import {ConfigContext} from '../../contexts/ConfigContext'
 import {configReducer, defaultConfigState} from '../../reducers/configReducer'
 import {titleReducer, defaultTitleState} from '../../reducers/titleReducer'
+import './App.css'
 
 
 function App() {
   const appCtrStyle = {
     height: '100vh',
     width: '100vw',
-    position: 'absolute'
-  }
-  const contentCtrStyle = {
-    position: 'relative',
-    padding: '1rem',
-    top: '20%'
+    position: 'absolute',
+    minWidth: '320px'
   }
   const [config, configDispatch] = useReducer(configReducer, defaultConfigState)
   const [title, titleDispatch] = useReducer(titleReducer, defaultTitleState)
@@ -28,12 +25,12 @@ function App() {
       <TitleContext.Provider value={{title, titleDispatch}}>
         <BackgroundImage/>
         <Grid container style={appCtrStyle} justify='center'>
-          <Grid item xs={12} sm={10} md={8} lg={6} style={contentCtrStyle}>
+          <div className='content-ctr'>
             <TextInput/>
             <TitleDisplay/>
-          </Grid>
+          </div>
+          <Footer />
         </Grid>
-        <Footer />
       </TitleContext.Provider>
     </ConfigContext.Provider>
   );

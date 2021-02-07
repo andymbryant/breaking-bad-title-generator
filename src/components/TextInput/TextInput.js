@@ -21,7 +21,7 @@ function TextInput() {
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
     <Grid container>
-      <Grid item xs={9}>
+      <Grid item xs={8}>
         <TextField
           variant='filled'
           color='secondary'
