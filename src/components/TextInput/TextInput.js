@@ -4,7 +4,6 @@ import {TitleContext} from '../../contexts/TitleContext'
 import {ConfigContext} from '../../contexts/ConfigContext'
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
@@ -24,7 +23,7 @@ function TextInput() {
   const handleToggleRandomSelection = (e) => configDispatch({type: 'TOGGLE_IS_ELEMENT_SELECTION_RANDOM'})
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
-    <Container fluid>
+    <Container fluid={true}>
       <div className='text-input-ctr'>
         <TextField
           variant='filled'
