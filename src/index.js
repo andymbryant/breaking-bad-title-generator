@@ -4,6 +4,7 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import "typeface-lora";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 const bbTheme = createMuiTheme({

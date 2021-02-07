@@ -1,9 +1,11 @@
 .char-unit-ctr {
-  width: 40px;
+  width: 50px;
   height: 100px;
   display: flex;
   color: white;
-  font-size: 3rem;
+  font-size: 4rem;
+  font-weight: 700;
+  font-family: 'lora';
   align-items: center;
   justify-content: center;
 }

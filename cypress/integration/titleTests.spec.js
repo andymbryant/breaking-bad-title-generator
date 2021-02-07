@@ -2,8 +2,8 @@
 // Primarily used as a visual testing aid for multiple title examples
 
 describe('Title tests', () => {
-  const titleExamples = ['Tim', 'John von Neumann', 'Jesse Pinkman', 'Walt', "Conan O'Brien", 'Barack Obama',
-    'Hermione Granger', ' ', 'long name with many words', 'princess Zelda', 'Bowser']
+  const titleExamples = ['Tim', 'John von Neumann', 'Jesse Pinkman', "Conan O'Brien", 'Barack Obama',
+    'Hermione Granger', ' ', 'four words in sentence', 'princess Zelda', 'Bowser']
   before(()=> {
     cy.visit('http://localhost:3000/')
   })
