@@ -1,5 +1,4 @@
 import {useContext} from 'react'
-import './TextInput.css'
 import {TitleContext} from '../../contexts/TitleContext'
 import {ConfigContext} from '../../contexts/ConfigContext'
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,8 @@ import Button from '@material-ui/core/Button';
 
 function TextInput() {
   const buttonStyle = {
-    height: '100%'
+    height: '100%',
+    marginLeft: '0.5rem'
   }
   // eslint-disable-next-line no-unused-vars
   const {title, titleDispatch} = useContext(TitleContext)
@@ -20,7 +20,7 @@ function TextInput() {
   const handleToggleRandomSelection = (e) => configDispatch({type: 'TOGGLE_IS_ELEMENT_SELECTION_RANDOM'})
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
-    <Grid container spacing={1}>
+    <Grid container>
       <Grid item xs={9}>
         <TextField
           variant='filled'
@@ -36,7 +36,7 @@ function TextInput() {
           onChange={handleSetTitle}
           />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item >
         <Button
           color='secondary'
           data-cy='clear-btn'

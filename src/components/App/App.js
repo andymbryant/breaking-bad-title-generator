@@ -18,6 +18,7 @@ function App() {
   }
   const contentCtrStyle = {
     position: 'relative',
+    padding: '1rem',
     top: '20%'
   }
   const [config, configDispatch] = useReducer(configReducer, defaultConfigState)
@@ -27,12 +28,9 @@ function App() {
       <TitleContext.Provider value={{title, titleDispatch}}>
         <BackgroundImage/>
         <Grid container style={appCtrStyle} justify='center'>
-          <Grid item xs={12} sm={10} md={8} lg={6}>
-          {/* <Grid container height='100%' xs={12} sm={10} md={8} lg={6}> */}
-            <Grid item style={contentCtrStyle}>
-              <TextInput/>
-              <TitleDisplay/>
-            </Grid>
+          <Grid item xs={12} sm={10} md={8} lg={6} style={contentCtrStyle}>
+            <TextInput/>
+            <TitleDisplay/>
           </Grid>
         </Grid>
         <Footer />
