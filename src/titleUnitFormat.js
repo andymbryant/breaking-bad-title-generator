@@ -45,7 +45,7 @@ function splitString(str, sep = ' ') {
  * which would only access a single element: Ununennium
  * @returns {array} string object array
  */
-function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
+function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=false) {
   const strObjArr = []
   // Loop through all characters of the string arg
   for (let i = 0; i < str.length; i++) {
@@ -96,7 +96,7 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
     }
     }
   }
-  if (randomize) {
+  if (isSelectionRandom) {
     return shuffle(strObjArr)
   }
   return strObjArr
@@ -145,9 +145,9 @@ function getStringMap(str) {
  * @param {string} str the string to be used for generating a title unit object
  * @returns {object} a title unit object
  */
-function getTitleUnitObjectFromString(str, allowMultipleElements = false) {
+function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRandom) {
   const stringMap = getStringMap(str)
-  const strObjArr = getStringObjectArray(str)
+  const strObjArr = getStringObjectArray(str, isSelectionRandom)
   const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap, allowMultipleElements)
   let titleUnitArr = []
   for (let i = 0; i < unformattedTitleUnitArr.length; i++) {
@@ -181,12 +181,12 @@ function getTitleUnitObjectFromString(str, allowMultipleElements = false) {
  * @param {string} str
  * @returns {object} array of title unit objects
  */
-function getTitleUnitArrayFromString(str, allowMultipleElements = false) {
+function getTitleUnitArrayFromString(str, allowMultipleElements = false, isSelectionRandom=true) {
   // Split text string into array on space (if any)
   const titleStrArr = splitString(str)
   if (!titleStrArr.length) return []
   // Get array of title unit objects for rendering
-  return titleStrArr.map((word) => getTitleUnitObjectFromString(word, allowMultipleElements))
+  return titleStrArr.map((word) => getTitleUnitObjectFromString(word, allowMultipleElements, isSelectionRandom))
 }
 
 export { getTitleUnitArrayFromString }

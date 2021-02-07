@@ -23,7 +23,7 @@ function TextInput() {
   const handleToggleRandomSelection = (e) => configDispatch({type: 'TOGGLE_IS_ELEMENT_SELECTION_RANDOM'})
   const handleClearTitle = (e) => titleDispatch({type: 'CLEAR_TITLE'})
   return (
-    <Container fluid={true}>
+    <Container fluid='true'>
       <div className='text-input-ctr'>
         <TextField
           variant='filled'

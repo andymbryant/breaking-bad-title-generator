@@ -9,7 +9,7 @@ function TitleDisplay() {
   const {title} = useContext(TitleContext)
   const {config} = useContext(ConfigContext)
   // Get array of title unit objects for rendering
-  const titleUnitObjectArray = getTitleUnitArrayFromString(title, config.allowMultipleElements)
+  const titleUnitObjectArray = getTitleUnitArrayFromString(title, config.allowMultipleElements, config.isElementSelectionRandom)
 
   return (
     <div className="title-ctr">
