@@ -1,11 +1,11 @@
-export const defaultTitleValue = ''
+export const defaultTitleState = ''
 
 export const titleReducer = (state, {type, payload}) => {
   switch (type) {
     case 'SET_TITLE':
       return payload
     case 'CLEAR_TITLE':
-      return defaultTitleValue
+      return defaultTitleState
     default:
       console.error('Unkown action type')
       return state;

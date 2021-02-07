@@ -2,16 +2,12 @@ import {useContext} from 'react'
 import {TitleContext} from '../../contexts/TitleContext'
 import TitleWord from '../TitleWord/TitleWord'
 import './TitleDisplay.css'
-import { splitString, getTitleUnitObjectFromString  } from '../../titleUnitFormat'
+import { getTitleUnitArrayFromString } from '../../titleUnitFormat'
 
 function TitleDisplay() {
   const {title} = useContext(TitleContext)
-
-  // Split text string into array on space (if any)
-  const titleStrArr = splitString(title)
-  if (!titleStrArr.length) return
   // Get array of title unit objects for rendering
-  const titleUnitObjectArray = titleStrArr.map((word) => getTitleUnitObjectFromString(word))
+  const titleUnitObjectArray = getTitleUnitArrayFromString(title, true)
 
   return (
     <div className="title-ctr">

@@ -110,13 +110,15 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
  * @param {object} strMap object with integer keys for each index in a string
  * @returns {array} array of unformatted title unit objects, ordered by first index
  */
-function getUnformattedTitleUnitArray(strObjArr, strMap) {
+function getUnformattedTitleUnitArray(strObjArr, strMap, allowMultipleElements = false) {
   let unformattedTitleUnitArr = []
   // Loop through each string object in the array arg
   for (let i = 0; i < strObjArr.length; i++) {
     const strObj = strObjArr[i]
     // If an element has already been added to arr, do not add any more two or three-char units
-    if (arrayHasElementUnit(unformattedTitleUnitArr) && strObj.ind.length > 1) continue
+    if (!allowMultipleElements) {
+      if (arrayHasElementUnit(unformattedTitleUnitArr) && strObj.ind.length > 1) continue
+    }
     // If no string values are found in map, add them all
     if (!strObj.ind.some(i => strMap[i])) {
       // Add string object to array
@@ -126,7 +128,6 @@ function getUnformattedTitleUnitArray(strObjArr, strMap) {
     }
   }
   return unformattedTitleUnitArr
-  // return orderBy(unformattedTitleUnitArr, 'ind[0]')
 }
 
 function getStringMap(str) {
@@ -144,16 +145,21 @@ function getStringMap(str) {
  * @param {string} str the string to be used for generating a title unit object
  * @returns {object} a title unit object
  */
-function getTitleUnitObjectFromString(str) {
+function getTitleUnitObjectFromString(str, allowMultipleElements = false) {
   const stringMap = getStringMap(str)
   const strObjArr = getStringObjectArray(str)
-  const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap)
+  const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap, allowMultipleElements)
   let titleUnitArr = []
   for (let i = 0; i < unformattedTitleUnitArr.length; i++) {
     const unit = unformattedTitleUnitArr[i]
     // Get element from elements data by key
     const element = elements[unit.str]
-    const isElement = !!element && !arrayHasElementUnit(titleUnitArr)
+    let isElement
+    if (allowMultipleElements) {
+      isElement = !!element
+    } else {
+      isElement = !!element && !arrayHasElementUnit(titleUnitArr)
+    }
     const formattedTitleUnit = {
       id: generateID(),
       // If element exists, then return an element object, otherwise return a character object
@@ -170,4 +176,17 @@ function getTitleUnitObjectFromString(str) {
   }
 }
 
-export { splitString, getTitleUnitObjectFromString, generateID }
+/**
+ * Returns an array of title unit objects, which are of type ELEMENT or CHARACTER
+ * @param {string} str
+ * @returns {object} array of title unit objects
+ */
+function getTitleUnitArrayFromString(str, allowMultipleElements = false) {
+  // Split text string into array on space (if any)
+  const titleStrArr = splitString(str)
+  if (!titleStrArr.length) return []
+  // Get array of title unit objects for rendering
+  return titleStrArr.map((word) => getTitleUnitObjectFromString(word, allowMultipleElements))
+}
+
+export { getTitleUnitArrayFromString }
