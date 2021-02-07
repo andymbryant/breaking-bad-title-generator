@@ -1,12 +1,19 @@
 import ElementUnit from '../ElementUnit/ElementUnit'
-import CharUnit from '../CharUnit/CharUnit'
+import CharacterUnit from '../CharacterUnit/CharacterUnit'
 import PropTypes from 'prop-types'
+import titleUnitTypes from '../../titleUnitTypes'
 
 // A title word is made up of either element or character components
 function TitleWord({titleUnits}) {
   return (
     <div className='word-ctr'>
-      {titleUnits.map(unit => unit.type === 'element' ? <ElementUnit key={unit.id} {...unit.data}/> : <CharUnit key={unit.id} {...unit.data}/>)}
+      {titleUnits.map(unit => {
+        if (unit.type === titleUnitTypes.ELEMENT) {
+          return  <ElementUnit key={unit.id} {...unit.data}/>
+        }
+        return <CharacterUnit key={unit.id} {...unit.data}/>
+      })
+    }
     </div>
   )
 }

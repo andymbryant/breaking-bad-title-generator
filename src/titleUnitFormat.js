@@ -1,7 +1,8 @@
 import { v4 } from 'uuid';
 import * as orderBy from 'lodash/orderBy'
 import * as shuffle from 'lodash/shuffle'
-import { elements } from '../../data/elementData'
+import { elements } from './data/elementData'
+import TUT from './titleUnitTypes'
 
 /**
  * Helper function that checks if array has at least one object that has type 'element'
@@ -9,7 +10,7 @@ import { elements } from '../../data/elementData'
  */
 function arrayHasElementUnit(arr) {
   if (!arr) return false
-  return arr.filter(tu => tu.type === 'element').length
+  return arr.filter(tu => tu.type === TUT.ELEMENT).length
 }
 
 /**
@@ -53,7 +54,7 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
     const oneCharStrObj = {
       str: firstChar,
       ind: [i],
-      type: isElement ? 'element' : 'char'
+      type: isElement ? TUT.ELEMENT : TUT.CHARACTER
     }
     strObjArr.push(oneCharStrObj)
 
@@ -68,7 +69,7 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
         const twoCharStrObj = {
           str: twoCharStr,
           ind: [i,j],
-          type: 'element'
+          type: TUT.ELEMENT
         }
         strObjArr.push(twoCharStrObj)
       }
@@ -88,7 +89,7 @@ function getStringObjectArray(str, randomize=true, includeThreeCharStr=false) {
         const threeCharStrObj = {
           str: threeCharStr,
           ind: [i,j,k],
-          type: 'element'
+          type: TUT.ELEMENT
         }
         strObjArr.push(threeCharStrObj)
       }
@@ -156,7 +157,7 @@ function getTitleUnitObjectFromString(str) {
     const formattedTitleUnit = {
       id: generateID(),
       // If element exists, then return an element object, otherwise return a character object
-      type: isElement ? 'element' : 'char',
+      type: isElement ? TUT.ELEMENT : TUT.CHARACTER,
       data: isElement ? element : {str: unit.str},
       ind: unit.ind
     }

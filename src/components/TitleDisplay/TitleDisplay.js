@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import {TitleContext} from '../../contexts/TitleContext'
 import TitleWord from '../TitleWord/TitleWord'
 import './TitleDisplay.css'
-import { splitString, getTitleUnitObjectFromString  } from './formatTitle'
+import { splitString, getTitleUnitObjectFromString  } from '../../titleUnitFormat'
 
 function TitleDisplay() {
   const {title} = useContext(TitleContext)
