@@ -6,6 +6,7 @@ import {TitleContext} from '../../contexts/TitleContext'
 import {titleReducer, defaultTitleValue} from '../../reducers/titleReducer'
 import './App.css';
 
+
 function App() {
   const [title, dispatch] = useReducer(titleReducer, defaultTitleValue)
   return (

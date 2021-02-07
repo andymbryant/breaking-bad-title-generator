@@ -9,7 +9,6 @@ function TextInput() {
     height: '100%'
   }
   const textInputStyle = {
-    color: 'green',
     marginRight: '1rem'
   }
   // eslint-disable-next-line no-unused-vars
@@ -23,17 +22,21 @@ function TextInput() {
     <div className='text-input-ctr'>
       {/* <input data-cy='text-input' value={title} onChange={handleSetTitle} type="text" id='text-input'/> */}
       <TextField
-        variant='outlined'
+        variant='filled'
+        color='secondary'
         label='Enter Text'
         data-cy='text-input'
         style={textInputStyle}
+        inputProps={{
+          spellCheck: false
+        }}
         value={title}
         id='text-input'
         fullWidth={true}
         onChange={handleSetTitle}
       />
       <Button
-        color='red'
+        color='primary'
         data-cy='clear-btn'
         variant='contained'
         style={buttonStyle}
