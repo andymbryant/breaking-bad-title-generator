@@ -4,7 +4,6 @@ import {ConfigContext} from '../../contexts/ConfigContext'
 import TitleWord from '../TitleWord/TitleWord'
 import './TitleDisplay.css'
 import { getTitleUnitArrayFromString } from '../../titleUnitFormat'
-import * as cloneDeep from 'lodash/cloneDeep'
 
 function TitleDisplay() {
   const {title} = useContext(TitleContext)
@@ -14,7 +13,7 @@ function TitleDisplay() {
   const titleUnitObjArr = getTitleUnitArrayFromString(title, config.allowMultipleElements, config.isElementSelectionRandom)
   return (
     <div className="title-ctr">
-      {cloneDeep(titleUnitObjArr).map(obj => <TitleWord key={obj.id} titleUnits={obj.arr}/>)}
+      {titleUnitObjArr.map(obj => <TitleWord key={obj.id} titleUnits={obj.arr}/>)}
     </div>
   )
 }
