@@ -8,9 +8,9 @@ import { getTitleUnitArrayFromString } from '../../titleUnitFormat'
 function TitleDisplay() {
   const {title} = useContext(TitleContext)
   const {config} = useContext(ConfigContext)
+  if (!title) return null
   // Get array of title unit objects for rendering
   const titleUnitObjectArray = getTitleUnitArrayFromString(title, config.allowMultipleElements, config.isElementSelectionRandom)
-
   return (
     <div className="title-ctr">
       {titleUnitObjectArray.map(obj => <TitleWord key={obj.id} titleUnits={obj.arr}/>)}

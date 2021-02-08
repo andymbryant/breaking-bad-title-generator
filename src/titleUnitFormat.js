@@ -10,6 +10,7 @@ import TUT from './titleUnitTypes'
  */
 function arrayHasElementUnit(arr) {
   if (!arr) return false
+  if (!arr.length) return false
   return arr.filter(tu => tu.type === TUT.ELEMENT).length
 }
 
@@ -28,12 +29,12 @@ function generateID(length=6) {
 
 /**
  * Returns a string split by a delimeter
- * @param {string} str the string to be split
+ * @param {string} string the string to be split
  * @param {string} sep the separator for splitting the string
  * @returns {string} the split string
  */
-function splitString(str, sep = ' ') {
-  return str.split(sep)
+function splitString(string, sep = ' ') {
+  return string.split(sep)
 }
 
 /**
@@ -45,11 +46,11 @@ function splitString(str, sep = ' ') {
  * which would only access a single element: Ununennium
  * @returns {array} string object array
  */
-function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) {
+function getStringObjectArray(string, isSelectionRandom, includeThreeCharStr=true) {
   const strObjArr = []
   // Loop through all characters of the string arg
-  for (let i = 0; i < str.length; i++) {
-    const firstChar = str[i]
+  for (let i = 0; i < string.length; i++) {
+    const firstChar = string[i]
     const isElement = !!elements[firstChar.toLowerCase()]
     const oneCharStrObj = {
       str: firstChar,
@@ -59,8 +60,8 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) 
     strObjArr.push(oneCharStrObj)
 
     let j = i + 1
-    if (j < str.length) {
-      const secondChar = str[j]
+    if (j < string.length) {
+      const secondChar = string[j]
       const twoCharStr = `${firstChar}${secondChar}`
       // Check if twoCharStr is a key of the elements object
       // If not, then it should be considered for inclusion in the final title
@@ -78,9 +79,9 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) 
     // This block can be nested in the above if statement, but it makes it less legible
     if (includeThreeCharStr) {
       let k = j + 1
-      if (k < str.length) {
-        const secondChar = str[j]
-        const thirdChar = str[k]
+      if (k < string.length) {
+        const secondChar = string[j]
+        const thirdChar = string[k]
         const threeCharStr = `${firstChar}${secondChar}${thirdChar}`
       // Check if twoCharStr is a key of the elements object
       // If not, then it should be considered for inclusion in the final title
@@ -96,10 +97,11 @@ function getStringObjectArray(str, isSelectionRandom, includeThreeCharStr=true) 
     }
     }
   }
+  const elementsFirst = orderBy(strObjArr, (obj) => obj.str.length, ['desc'])
   if (isSelectionRandom) {
-    return shuffle(strObjArr)
+    return shuffle(elementsFirst)
   }
-  return strObjArr
+  return elementsFirst
 }
 
 /**
@@ -128,13 +130,15 @@ function getUnformattedTitleUnitArray(strObjArr, strMap, allowMultipleElements =
       strObj.ind.forEach(j => strMap[j] = true)
     }
   }
-  return unformattedTitleUnitArr
+  // Put element units in front with longest values to ensure that if an element exists, it will appear in display
+  const elementsFirst = orderBy(unformattedTitleUnitArr, ['type'], ['desc'])
+  return orderBy(elementsFirst, (tu) => tu.str.length, ['desc'])
 }
 
-function getStringMap(str) {
+function getStringMap(string) {
   // Initialize map for each index of the title
   const stringMap = {}
-  for (let k = 0; k < str.length; k++) {
+  for (let k = 0; k < string.length; k++) {
     stringMap[k] = false
   }
   return stringMap
@@ -143,34 +147,36 @@ function getStringMap(str) {
 /**
  * Returns a title unit object, which includes a title unit array and an id
  * A title unit array includes an id, the type of title unit, and the data needed to render a title unit (either element data or a string)
- * @param {string} str the string to be used for generating a title unit object
+ * @param {string} string the string to be used for generating a title unit object
  * @param {boolean} allowMultipleElements allow multiple elements to be selected in each word
  * @param {boolean} isSelectionRandom make the selection of elements random (if false, it is first matched)
  * @returns {object} a title unit object
  */
-function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRandom) {
+function getTitleUnitObjectFromString(string, allowMultipleElements, isSelectionRandom) {
   // If the input is an element, return it as an object immediately
-  if (elements[str.toLowerCase()]) {
+  let element = elements[string.toLowerCase()]
+  if (!!element) {
     return {
       id: generateID(),
       arr: [
         {
           id: generateID(),
           type: TUT.ELEMENT,
-          data: elements[str.toLowerCase()],
+          data: element,
           ind: []
         }
       ]
     }
   }
-  const stringMap = getStringMap(str)
-  const strObjArr = getStringObjectArray(str, isSelectionRandom)
+  // if (string.length === 5) debugger
+  const stringMap = getStringMap(string)
+  const strObjArr = getStringObjectArray(string, isSelectionRandom)
   const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap, allowMultipleElements)
   let titleUnitArr = []
   for (let i = 0; i < unformattedTitleUnitArr.length; i++) {
     const unit = unformattedTitleUnitArr[i]
     // Get element from elements data by key
-    const element = elements[unit.str.toLowerCase()]
+    element = elements[unit.str.toLowerCase()]
     let isElement
     if (allowMultipleElements) {
       isElement = !!element
@@ -185,22 +191,22 @@ function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRan
       ind: unit.ind
     }
     titleUnitArr.push(formattedTitleUnit)
+    console.log(titleUnitArr)
   }
-
   return {
     id: generateID(),
-    arr: orderBy(titleUnitArr, 'ind[0]')
+    arr: orderBy(titleUnitArr, (tu) => tu.ind[0])
   }
 }
 
 /**
  * Returns an array of title unit objects, which are of type ELEMENT or CHARACTER
- * @param {string} str
+ * @param {string} string
  * @returns {object} array of title unit objects
  */
-function getTitleUnitArrayFromString(str, allowMultipleElements = false, isSelectionRandom=true) {
+function getTitleUnitArrayFromString(string, allowMultipleElements = false, isSelectionRandom=true) {
   // Split text string into array on space (if any)
-  const titleStrArr = splitString(str)
+  const titleStrArr = splitString(string)
   if (!titleStrArr.length) return []
   // Get array of title unit objects for rendering
   return titleStrArr.map((word) => getTitleUnitObjectFromString(word, allowMultipleElements, isSelectionRandom))
