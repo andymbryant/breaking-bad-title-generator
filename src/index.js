@@ -7,6 +7,8 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import "typeface-lora";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
+// Palette reference:
+// https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/Breaking_Bad.jpeg?Ifrqi.v01Y0KfAlAyY172HCu8HZTJJvy&size=770:433
 const bbTheme = createMuiTheme({
   palette: {
     primary: {
@@ -19,13 +21,12 @@ const bbTheme = createMuiTheme({
 });
 
 ReactDOM.render(
-  // Removed to prevent reducer from running multiple times
-  // <React.StrictMode>
+  <React.StrictMode>
     <MuiThemeProvider theme={bbTheme}>
       <CssBaseline/>
       <App />
-    </MuiThemeProvider>,
-  // </React.StrictMode>,
+    </MuiThemeProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
