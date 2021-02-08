@@ -11,7 +11,7 @@ import TUT from './titleUnitTypes'
 function arrayHasElementUnit(arr) {
   if (!arr) return false
   if (!arr.length) return false
-  return arr.filter(tu => tu.type === TUT.ELEMENT).length
+  return !!arr.filter(tu => tu.type === TUT.ELEMENT).length
 }
 
 /**
@@ -97,11 +97,11 @@ function getStringObjectArray(string, isSelectionRandom, includeThreeCharStr=tru
     }
     }
   }
-  const elementsFirst = orderBy(strObjArr, (obj) => obj.str.length, ['desc'])
   if (isSelectionRandom) {
+    const elementsFirst = orderBy(strObjArr, (obj) => obj.str.length, ['desc'])
     return shuffle(elementsFirst)
   }
-  return elementsFirst
+  return strObjArr
 }
 
 /**
@@ -113,13 +113,13 @@ function getStringObjectArray(string, isSelectionRandom, includeThreeCharStr=tru
  * @param {boolean} allowMultipleElements allow multiple elements to be selected in each word
  * @returns {array} array of unformatted title unit objects, ordered by first index
  */
-function getUnformattedTitleUnitArray(strObjArr, strMap, allowMultipleElements = false) {
+function getUnformattedTitleUnitArray(strObjArr, strMap, allowMultipleElements) {
   let unformattedTitleUnitArr = []
   // Loop through each string object in the array arg
   for (let i = 0; i < strObjArr.length; i++) {
     const strObj = strObjArr[i]
-    // If an element has already been added to arr, do not add any more two or three-char units
     if (!allowMultipleElements) {
+      // If an element has already been added to arr, do not add any more two or three-char units
       if (arrayHasElementUnit(unformattedTitleUnitArr) && strObj.ind.length > 1) continue
     }
     // If no string values are found in map, add them all
@@ -169,8 +169,8 @@ function getTitleUnitObjectFromString(string, allowMultipleElements, isSelection
     }
   }
   // if (string.length === 5) debugger
-  const stringMap = getStringMap(string)
   const strObjArr = getStringObjectArray(string, isSelectionRandom)
+  const stringMap = getStringMap(string)
   const unformattedTitleUnitArr = getUnformattedTitleUnitArray(strObjArr, stringMap, allowMultipleElements)
   let titleUnitArr = []
   for (let i = 0; i < unformattedTitleUnitArr.length; i++) {
@@ -191,7 +191,6 @@ function getTitleUnitObjectFromString(string, allowMultipleElements, isSelection
       ind: unit.ind
     }
     titleUnitArr.push(formattedTitleUnit)
-    console.log(titleUnitArr)
   }
   return {
     id: generateID(),
@@ -202,6 +201,8 @@ function getTitleUnitObjectFromString(string, allowMultipleElements, isSelection
 /**
  * Returns an array of title unit objects, which are of type ELEMENT or CHARACTER
  * @param {string} string
+ * @param {boolean} allowMultipleElements allow multiple elements to be selected in each word
+ * @param {boolean} isSelectionRandom make the selection of elements random (if false, it is first matched)
  * @returns {object} array of title unit objects
  */
 function getTitleUnitArrayFromString(string, allowMultipleElements = false, isSelectionRandom=true) {

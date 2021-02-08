@@ -19,12 +19,13 @@ const bbTheme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  // Removed to prevent reducer from running multiple times
+  // <React.StrictMode>
     <MuiThemeProvider theme={bbTheme}>
       <CssBaseline/>
       <App />
-    </MuiThemeProvider>
-  </React.StrictMode>,
+    </MuiThemeProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
