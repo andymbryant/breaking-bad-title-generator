@@ -178,7 +178,7 @@ function getformattedTitleUnitArray(unformattedTitleUnitArray, allowMultipleElem
     titleUnitArr.push(formattedTitleUnit)
   }
   // Sorted by index of appearance in original string to ensure display is correct order
-  return sortBy(titleUnitArr, 'ind')
+  return sortBy(titleUnitArr, (tu)=> tu.ind[0])
 }
 
 /**
