@@ -157,7 +157,7 @@ function getTitleUnitObjectFromString(str, allowMultipleElements, isSelectionRan
         {
           id: generateID(),
           type: TUT.ELEMENT,
-          data: elements[str],
+          data: elements[str.toLowerCase()],
           ind: []
         }
       ]
